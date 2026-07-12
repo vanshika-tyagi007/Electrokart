@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body data-page="products">
+  <%- include('../partials/header') %>
+  <main class="container" style="padding-top: 2rem;">
+    <h1>All Products</h1>
+    <div id="products-grid" class="product-grid">
+      <!-- Products will be loaded via JS -->
+    </div>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    async function loadProducts() {
+      try {
+        const products = await api.get('/products' + window.location.search);
+        const grid = document.getElementById('products-grid');
+        grid.innerHTML = products.map(p => `
+          <div class="product-card">
+            <a href="/product?id=${p._id}" class="product-img" style="display:block; text-decoration:none;">
+              <img src="${p.images[0] || 'https://via.placeholder.com/300'}" alt="${p.name}" loading="lazy">
+            </a>
+            <div class="product-body" style="padding: 1.5rem; display: flex; flex-direction: column; height: 100%;">
+              <a href="/product?id=${p._id}" style="text-decoration:none; color:inherit; display:block; flex-grow: 1;">
+                <span class="product-brand" style="color:var(--text-secondary); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;">${p.brand}</span>
+                <h3 class="product-title" style="font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.3rem; line-height: 1.2; margin-top: 0.25rem;">${p.name}</h3>
+                <div class="product-price" style="font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 1.5rem; margin-top: 2.5rem;">$${p.price}</div>
+              </a>
+              <button class="btn btn-primary" onclick="addToCart('${p._id}')" style="margin-top: 1.5rem; width: 100%; justify-content: center; padding: 0.9rem;">Add to Cart</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function addToCart(productId) {
+      try {
+        await api.post('/cart', { productId, quantity: 1 });
+        if (window.refreshCartCount) window.refreshCartCount();
+        toast('Added to cart!', 'success');
+      } catch(e) { 
+        if (e.status === 401) {
+          toast('Please login to add items to cart.', 'error');
+          setTimeout(() => window.location.href = '/login', 1500);
+        } else {
+          toast('Failed to add to cart', 'error');
+        }
+      }
+    }
+
+    loadProducts();
+  </script>
+</body>
+</html>

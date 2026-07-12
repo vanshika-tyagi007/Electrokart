@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electrokart — Precision Electronics</title>
+  <meta name="description" content="Premium electronics and gadgets, engineered for those who care about the details." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="home">
+  <div id="header-slot"></div>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero container" data-testid="hero-section">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">// NEW COLLECTION — Q1.2026</span>
+          <h1>Signal <br/><span class="accent">meets</span> silence.</h1>
+          <p>Studio-grade wireless audio, titanium wearables, and cinematic drones — engineered for people who care about the details others miss.</p>
+          <div class="hero-actions">
+            <a href="/products" class="btn btn-primary" data-testid="hero-shop-btn">Shop the collection <i data-lucide="arrow-right" style="width:16px;height:16px"></i></a>
+            <a href="/products?featured=true" class="btn btn-outline" data-testid="hero-featured-btn">See featured</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1515940175183-6798529cb860?w=1600&q=85" alt="Electrokart Studio Wireless Headphones" />
+          <span class="hero-tag">// Electrokart Studio · Pearl</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Free worldwide shipping</span>
+        <span>1-year warranty</span>
+        <span>Next-gen audio</span>
+        <span>Titanium engineering</span>
+        <span>Free worldwide shipping</span>
+        <span>1-year warranty</span>
+        <span>Next-gen audio</span>
+        <span>Titanium engineering</span>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <section class="section container" data-testid="categories-section">
+      <div class="section-head">
+        <div>
+          <span class="small-caps">// 01 · Categories</span>
+          <h2 style="margin-top:1rem">Every category. <br/>Curated ruthlessly.</h2>
+        </div>
+        <a href="/products" class="btn btn-outline">All products</a>
+      </div>
+      <div class="category-strip" id="category-strip"></div>
+    </section>
+
+    <!-- Featured products -->
+    <section class="section container" data-testid="featured-section">
+      <div class="section-head">
+        <div>
+          <span class="small-caps">// 02 · Featured</span>
+          <h2 style="margin-top:1rem">The current <span style="color:var(--accent-primary)">obsession.</span></h2>
+        </div>
+        <a href="/products" class="btn btn-outline">Shop all</a>
+      </div>
+      <div class="product-grid bento" id="featured-grid"></div>
+    </section>
+
+    <!-- Value blocks -->
+    <section class="section container">
+      <div class="section-head">
+        <div>
+          <span class="small-caps">// 03 · Why Electrokart</span>
+          <h2 style="margin-top:1rem">Details others miss.</h2>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem" id="value-blocks">
+        <div style="border:1px solid var(--border-color);padding:2rem;background:var(--bg-surface);border-radius:3px">
+          <i data-lucide="cpu" style="color:var(--accent-primary);width:32px;height:32px;margin-bottom:1rem"></i>
+          <h4>Engineered in-house</h4>
+          <p style="color:var(--text-secondary);margin-top:0.5rem">Every chip, driver and hinge is designed and tested by our own engineers.</p>
+        </div>
+        <div style="border:1px solid var(--border-color);padding:2rem;background:var(--bg-surface);border-radius:3px">
+          <i data-lucide="shield-check" style="color:var(--accent-primary);width:32px;height:32px;margin-bottom:1rem"></i>
+          <h4>1-year warranty</h4>
+          <p style="color:var(--text-secondary);margin-top:0.5rem">Zero-fuss coverage on every product, backed by real humans.</p>
+        </div>
+        <div style="border:1px solid var(--border-color);padding:2rem;background:var(--bg-surface);border-radius:3px">
+          <i data-lucide="package" style="color:var(--accent-primary);width:32px;height:32px;margin-bottom:1rem"></i>
+          <h4>Free shipping</h4>
+          <p style="color:var(--text-secondary);margin-top:0.5rem">Complimentary worldwide shipping on orders over $500.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-slot"></div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/home.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>

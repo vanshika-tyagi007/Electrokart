@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body data-page="register">
+  <%- include('../partials/header') %>
+  <main class="container" style="padding-top: 4rem; max-width: 400px;">
+    <h1>Register</h1>
+    <form id="register-form">
+      <div style="margin-bottom:1rem">
+        <label>Name</label>
+        <input type="text" id="name" required style="width:100%; padding:0.5rem">
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>Email</label>
+        <input type="email" id="email" required style="width:100%; padding:0.5rem">
+      </div>
+      <div style="margin-bottom:1rem">
+        <label>Password</label>
+        <input type="password" id="password" required style="width:100%; padding:0.5rem">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Register</button>
+    </form>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        await api.post('/auth/register', {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value
+        });
+        window.location.href = '/';
+      } catch (err) {
+        alert('Registration failed');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body data-page="admin">
+  <%- include('../partials/header') %>
+  <main class="container" style="padding-top: 2rem;">
+    <h1>Admin Dashboard</h1>
+    <div id="admin-stats" style="display:flex; gap:1rem; margin-bottom:2rem;"></div>
+    <h2>Recent Orders</h2>
+    <div id="admin-orders"></div>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    async function loadAdmin() {
+      try {
+        const stats = await api.get('/admin/stats');
+        document.getElementById('admin-stats').innerHTML = `
+          <div style="padding:1rem; border:1px solid var(--border-color); flex:1">Products: ${stats.productsCount}</div>
+          <div style="padding:1rem; border:1px solid var(--border-color); flex:1">Users: ${stats.usersCount}</div>
+          <div style="padding:1rem; border:1px solid var(--border-color); flex:1">Orders: ${stats.ordersCount}</div>
+          <div style="padding:1rem; border:1px solid var(--border-color); flex:1">Revenue: $${stats.revenue}</div>
+        `;
+        
+        const orders = await api.get('/admin/orders');
+        document.getElementById('admin-orders').innerHTML = orders.map(o => `
+          <div style="border:1px solid var(--border-color); padding:1rem; margin-bottom:1rem;">
+            User: ${o.user ? o.user.name : 'Unknown'} | Total: $${o.totalPrice} | Status: ${o.orderStatus}
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadAdmin();
+  </script>
+</body>
+</html>

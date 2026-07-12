@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body data-page="product">
+  <%- include('../partials/header') %>
+  <main class="container" style="padding-top: 2rem;" id="product-detail">
+    <!-- Product detail loaded via JS -->
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    async function loadProduct() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      try {
+        const p = await api.get('/products/' + id);
+        document.getElementById('product-detail').innerHTML = `
+          <div style="display:flex; gap:4rem; align-items: start;">
+            <div style="flex:1; border: 1px solid var(--border-color); border-radius: 4px; padding: 2rem; background: var(--bg-surface);">
+              <img src="${p.images[0] || 'https://via.placeholder.com/600'}" style="width:100%; border-radius: 4px;">
+            </div>
+            <div style="flex:1" class="pd-info">
+              <a href="/products" style="display:inline-block; margin-bottom:2rem; color:var(--text-secondary); text-decoration:none; font-size:0.9rem; letter-spacing:0.05em; transition:color 0.2s;">&larr; Back to Shop</a>
+              <br>
+              <span class="small-caps">${p.brand}</span>
+              <h1 style="margin-top:0.5rem; margin-bottom:1.5rem; font-size: 3rem;">${p.name}</h1>
+              <div class="pd-price" style="color:var(--accent-primary); margin-bottom:2.5rem; font-size:2.5rem;">$${p.price}</div>
+              <p class="pd-desc" style="line-height:1.8; margin-bottom: 3rem; font-size: 1.15rem; color: var(--text-secondary);">${p.description}</p>
+              <button class="btn-cart-special" onclick="addToCart('${p._id}')">Add to Cart</button>
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    async function addToCart(productId) {
+      const qty = parseInt(document.getElementById('qty')?.value) || 1;
+      try {
+        await api.post('/cart', { productId, quantity: qty });
+        if (window.refreshCartCount) window.refreshCartCount();
+        toast('Added to cart!', 'success');
+      } catch(e) { 
+        if (e.status === 401) {
+          toast('Please login to add items to cart.', 'error');
+          setTimeout(() => window.location.href = '/login', 1500);
+        } else {
+          toast('Failed to add to cart', 'error');
+        }
+      }
+    }
+    loadProduct();
+  </script>
+</body>
+</html>

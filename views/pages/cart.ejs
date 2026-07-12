@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body data-page="cart">
+  <%- include('../partials/header') %>
+  <main class="container" style="padding-top: 2rem;">
+    <h1>Your Cart</h1>
+    <div id="cart-items"></div>
+    <div id="checkout-btn-container" style="margin-top:2rem; display:none;">
+      <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+    </div>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    async function loadCart() {
+      try {
+        const cart = await api.get('/cart');
+        const container = document.getElementById('cart-items');
+        const checkoutBtnContainer = document.getElementById('checkout-btn-container');
+        if(!cart || !cart.items || cart.items.length === 0) {
+          container.innerHTML = '<p>Your cart is empty.</p>';
+          checkoutBtnContainer.style.display = 'none';
+          return;
+        }
+        checkoutBtnContainer.style.display = 'block';
+        container.innerHTML = cart.items.map(item => `
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--border-color); padding:1rem 0;">
+            <div>${item.product.name} (x${item.quantity})</div>
+            <div style="display:flex; align-items:center; gap: 1rem;">
+              <span>$${item.price * item.quantity}</span>
+              <button class="cart-remove" onclick="removeFromCart('${item.product._id}')" aria-label="Remove item">
+                <i data-lucide="trash-2"></i>
+              </button>
+            </div>
+          </div>
+        `).join('');
+        if (window.lucide) window.lucide.createIcons();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function removeFromCart(productId) {
+      try {
+        await api.del('/cart/' + productId);
+        if (window.refreshCartCount) window.refreshCartCount();
+        loadCart();
+      } catch (err) {
+        console.error(err);
+        alert('Failed to remove item');
+      }
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>

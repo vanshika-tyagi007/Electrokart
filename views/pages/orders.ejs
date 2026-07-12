@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body data-page="orders">
+  <%- include('../partials/header') %>
+  <main class="container" style="padding-top: 2rem;">
+    <h1>Your Orders</h1>
+    <div id="orders-list"></div>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    async function loadOrders() {
+      try {
+        const orders = await api.get('/orders/myorders');
+        const container = document.getElementById('orders-list');
+        if(orders.length === 0) {
+          container.innerHTML = '<p>You have no orders.</p>';
+          return;
+        }
+        container.innerHTML = orders.map(o => `
+          <div style="border:1px solid var(--border-color); padding:1rem; margin-bottom:1rem; border-radius:3px;">
+            <h3>Order #${o._id}</h3>
+            <p>Total: $${o.totalPrice}</p>
+            <p>Status: ${o.orderStatus}</p>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadOrders();
+  </script>
+</body>
+</html>

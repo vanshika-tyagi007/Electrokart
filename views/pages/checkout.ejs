@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body data-page="checkout">
+  <%- include('../partials/header') %>
+  <main class="container" style="padding-top: 2rem; max-width: 600px;">
+    <h1>Checkout</h1>
+    <form id="checkout-form">
+      <div class="form-group" style="margin-bottom:1rem">
+        <label>Full Name</label>
+        <input type="text" id="fullName" required style="width:100%; padding:0.5rem">
+      </div>
+      <div class="form-group" style="margin-bottom:1rem">
+        <label>Address</label>
+        <input type="text" id="address" required style="width:100%; padding:0.5rem">
+      </div>
+      <div class="form-group" style="margin-bottom:1rem">
+        <label>City</label>
+        <input type="text" id="city" required style="width:100%; padding:0.5rem">
+      </div>
+      <div class="form-group" style="margin-bottom:1rem">
+        <label>Dummy Credit Card</label>
+        <input type="text" value="4000 0000 0000 0000" disabled style="width:100%; padding:0.5rem">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Confirm Order</button>
+    </form>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script>
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const address = {
+          fullName: document.getElementById('fullName').value,
+          addressLine1: document.getElementById('address').value,
+          city: document.getElementById('city').value,
+          state: 'State',
+          postalCode: '00000',
+          country: 'Country',
+          phoneNumber: '1234567890'
+        };
+        await api.post('/orders', { shippingAddress: address });
+        alert('Order Placed Successfully!');
+        window.location.href = '/orders';
+      } catch (err) {
+        alert('Error placing order');
+      }
+    });
+  </script>
+</body>
+</html>
