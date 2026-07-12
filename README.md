@@ -98,101 +98,12 @@ ElectroKart/
 ```
 
 ---
-
-# 🚀 Installation
-
-## Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/electrokart.git
-```
-
-```bash
-cd electrokart
-```
-
-## Install Dependencies
-
-```bash
-npm install
-```
-
-## Create Environment Variables
-
-Create a `.env` file in the project root.
-
-Example:
-
-```env
-PORT=5000
-
-MONGODB_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_secret_key
-```
-
-## Run the Project
-
-```bash
-npm start
-```
-
-or
-
-```bash
-npm run dev
-```
-
-The application will start on
-
-```
-http://localhost:5000
-```
-
----
-
-# 📸 Screenshots
-
-Add screenshots here.
-
-Example:
-
-```
-Home Page
-
-Products Page
-
-Product Details
-
-Shopping Cart
-
-Checkout
-
-Admin Dashboard
-```
-
----
-
 # 🔒 Security
 
 - Passwords are encrypted using bcrypt.
 - JWT-based authentication.
 - Protected API routes.
 - Environment variables secured using `.env`.
-
----
-
-# 📈 Future Improvements
-
-- Payment Gateway Integration
-- Product Reviews & Ratings
-- Coupons & Discounts
-- Email Notifications
-- Advanced Search Filters
-- Recommendation System
-- Sales Analytics
-- Multi-vendor Support
-- Dark Mode
 
 ---
 
@@ -210,11 +121,10 @@ https://electrokart-dye6.onrender.com/
 
 **Vanshika Tyagi**
 
-B.Tech Information Technology Student
+Engineering Student
 
-GitHub: https://github.com/yourusername
-
-LinkedIn: https://linkedin.com/in/yourprofile
+GitHub: https://github.com/vanshika-tyagi007
+LinkedIn: https: https://www.linkedin.com/in/vanshika-tyagi-557843365/
 
 ---
 
